@@ -21,6 +21,10 @@ class JumbleSolver():
     def alphabetize_word(word: str) -> str:
         return ''.join(sorted(word))
 
+    @staticmethod
+    def remove_duplicates(word_list: list[str]):
+        return [*set(word_list)]
+
     def solve(self, word: str) -> list[str]:
         '''
         Jumble solver in O(n!) time
@@ -41,8 +45,7 @@ class JumbleSolver():
         for pos in range(word_len):
             new_word = ordered_word[:pos] + ordered_word[pos + 1:]
             words.extend(self.solve(new_word))
-
-        return words
+        return self.remove_duplicates(words)
 
 if __name__ == '__main__':
     # Argument Parsing Setup
