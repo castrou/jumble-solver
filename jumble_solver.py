@@ -1,4 +1,5 @@
 import argparse
+import time
 
 class JumbleSolver():
     '''
@@ -52,12 +53,21 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('word_list_file', type=argparse.FileType('r'), help='File of word list to use.')
     parser.add_argument('word', type=str, help="Word to be \'jumble-solved\'.")
+    parser.add_argument('--debug', action='store_true', help='Record and display runtime performance metrics')
     # Parse Arguments
     args = parser.parse_args()
     word_list = [line.strip() for line in args.word_list_file]
     # Run Jumble Solver
     solver = JumbleSolver(word_list)
+    if args.debug:
+        # Record start time
+        time_start = time.time()
     words = solver.solve(args.word)
+    if args.debug:
+        print("JUMBLE SOLVED")
+        # Record end time and print time elapsed
+        time_end = time.time()
+        print(f"Time Elapsed: {time_end - time_start} seconds")
     # Print result
     for word in words:
         print(word)
